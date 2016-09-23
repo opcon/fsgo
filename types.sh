@@ -25,7 +25,7 @@ f() {
         | grep -o 'struct[[:space:]]\+\w\+' \
         | cut -d" "  -f2 \
         | sort -u \
-        | sed -r 's/^(.+)$/\t\1\tC.struct_\1/' -
+        | sed -r 's/^(.+)$/\t\u\1\tC.struct_\1/' -
     echo ")"
 };
 f | gofmt > types.go
