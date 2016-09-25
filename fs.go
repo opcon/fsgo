@@ -1,4 +1,5 @@
 //go:generate bash ./types.sh
+//go:generate bash -c './consts.sh'
 //go:generate bash -c "cgo -godefs types.go | sed 's/Pad_cgo/pad_cgo/' | gofmt > types_$GOARCH.go"
 
 package fs
@@ -25,7 +26,6 @@ void setup_ids();
 int nsem_test(const char*);
 
 // Don't use setup_ids as it turns off signals
-
 void setup(){
     void sem_att(), skd_att(), shm_att(), cls_att(), brk_att();
     shm_att(SHM_KEY);
@@ -53,8 +53,8 @@ import (
 	"unsafe"
 )
 
-func GetShm() *fscom {
-	return (*fscom)(unsafe.Pointer(C.getshm()))
+func GetShm() *Fscom {
+	return (*Fscom)(unsafe.Pointer(C.getshm()))
 }
 
 func SemIsLocked(key string) bool {
