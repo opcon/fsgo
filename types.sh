@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Generate a .go file with all neccessary types defined
+
 read -r -d '' header <<'EOF'
 // +build ignore
 // generated with types.sh --- do not edit

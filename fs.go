@@ -1,6 +1,6 @@
 //go:generate bash ./types.sh
-//go:generate bash -c './consts.sh'
-//go:generate bash -c "cgo -godefs types.go | sed 's/Pad_cgo/pad_cgo/' | gofmt > types_$GOARCH.go"
+//go:generate bash ./consts.sh
+//go:generate bash -c "cgo -godefs types.go | sed -e 's/Pad_cgo/pad_cgo/' -e 's/]int8/]byte/g' | gofmt > types_$GOARCH.go"
 
 package fs
 

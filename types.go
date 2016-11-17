@@ -82,6 +82,7 @@ type (
 	Mk6_record_mon     C.struct_mk6_record_mon
 	Mk6_scan_check_mon C.struct_mk6_scan_check_mon
 	Monit5_ping        C.struct_monit5_ping
+	Monit6             C.struct_monit6
 	Mux                C.struct_mux
 	Onoff_cmd          C.struct_onoff_cmd
 	Onoff_devices      C.struct_onoff_devices
@@ -93,6 +94,7 @@ type (
 	Rclcn_req_buf      C.struct_rclcn_req_buf
 	Rclcn_res_buf      C.struct_rclcn_res_buf
 	Rdbe_atten_cmd     C.struct_rdbe_atten_cmd
+	Rdbe_atten_mon     C.struct_rdbe_atten_mon
 	Rdbe_dot_mon       C.struct_rdbe_dot_mon
 	Rdbe_tsys_cycle    C.struct_rdbe_tsys_cycle
 	Rdbe_tsys_data     C.struct_rdbe_tsys_data
