@@ -494,12 +494,12 @@ type (
 		Wlong       float64
 		Systmp      [36]float32
 		Ldsign      int32
-		Lfreqv      [90]uint8
-		Lnaant      [8]uint8
-		Lsorna      [10]uint8
-		Idevant     [64]uint8
-		Idevgpib    [64]uint8
-		Idevlog     [64][5]uint8
+		Lfreqv      [90]int8
+		Lnaant      [8]int8
+		Lsorna      [10]int8
+		Idevant     [64]int8
+		Idevgpib    [64]int8
+		Idevlog     [64][5]int8
 		Ndevlog     int32
 		Imodfm      int32
 		Ipashd      [2][2]int32
