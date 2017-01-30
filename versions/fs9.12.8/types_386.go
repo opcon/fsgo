@@ -3,10 +3,6 @@
 
 package fs
 
-const (
-	FieldSystemVersion = "9.12.8"
-)
-
 type (
 	Bank_set_mon struct {
 		Active_bank struct {

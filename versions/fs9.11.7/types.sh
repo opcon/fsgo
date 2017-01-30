@@ -1,15 +1,17 @@
 #!/bin/bash
 
-read -r -d '' header <<'EOF'
+FSPATH=${FSPATH:-"/usr2/fs"}
+
+read -r -d '' header <<EOF
 // +build ignore
 // generated with types.sh --- do not edit
 
 package fs
 
 /*
-#include "/usr2/fs/include/params.h"
-#include "/usr2/fs/include/fs_types.h"
-#include "/usr2/fs/include/fscom.h"
+#include "$FSPATH/include/params.h"
+#include "$FSPATH/include/fs_types.h"
+#include "$FSPATH/include/fscom.h"
 */
 import "C"
 

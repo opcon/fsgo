@@ -1,7 +1,7 @@
 package fs
 
 import (
-	versions "../"
+	"fs/versions"
 )
 
 func init() {
