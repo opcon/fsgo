@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unsafe"
 
-	"svipc"
+	"fs/svipc"
 )
 
 func AttachFS() (fs *Fscom, err error) {

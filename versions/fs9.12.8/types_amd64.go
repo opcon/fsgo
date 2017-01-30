@@ -27,7 +27,7 @@ type (
 		}
 	}
 	Bbc_cmd struct {
-		Freq   int32
+		Freq   int64
 		Source int32
 		Bw     [2]int32
 		Bwcomp [2]int32
@@ -52,19 +52,19 @@ type (
 		Flip_64MHz_out      uint32
 		Digital_format      uint32
 		Flip_input          uint32
-		P_hilbert_no        uint8
-		N_hilbert_no        uint8
+		P_hilbert_no        byte
+		N_hilbert_no        byte
 		pad_cgo_0           [2]byte
 		Sub_band            uint32
-		Q_fir_no            uint8
-		I_fir_no            uint8
-		Clock_decimation    int8
+		Q_fir_no            byte
+		I_fir_no            byte
+		Clock_decimation    byte
 		pad_cgo_1           [1]byte
 		Add_sub             Mux
 		Usb_mux             Mux
 		Lsb_mux             Mux
-		Usb_threshold       uint8
-		Lsb_threshold       uint8
+		Usb_threshold       byte
+		Lsb_threshold       byte
 		pad_cgo_2           [2]byte
 		Usb_servo           Servo
 		Lsb_servo           Servo
@@ -109,14 +109,14 @@ type (
 		}
 	}
 	Cmd_ds struct {
-		Name      *int8
-		Equal     int8
-		pad_cgo_0 [3]byte
-		Argv      [100]*int8
+		Name      *byte
+		Equal     byte
+		pad_cgo_0 [7]byte
+		Argv      [100]*byte
 	}
 	Das struct {
 		Ds_mnem          [3]byte
-		pad_cgo_0        [1]byte
+		pad_cgo_0        [5]byte
 		Ifp              [2]Ifp
 		Voltage_p5V_ifp1 float32
 		Voltage_p5V_ifp2 float32
@@ -125,6 +125,7 @@ type (
 		Voltage_m9V      float32
 		Voltage_p15V     float32
 		Voltage_m15V     float32
+		pad_cgo_1        [4]byte
 	}
 	Data_check_mon struct {
 		Missing struct {
@@ -136,20 +137,21 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Submode struct {
+		pad_cgo_0 [4]byte
+		Submode   struct {
 			Submode   [33]byte
-			pad_cgo_0 [3]byte
-			First     int32
+			pad_cgo_0 [7]byte
+			First     int64
 			State     M5state
 		}
 		Time struct {
 			Time  M5time
-			Bad   int32
+			Bad   int64
 			State M5state
 		}
 		Offset struct {
-			Offset int32
-			Size   int32
+			Offset int64
+			Size   int64
 			State  M5state
 		}
 		Period struct {
@@ -157,7 +159,7 @@ type (
 			State  M5state
 		}
 		Bytes struct {
-			Bytes int32
+			Bytes int64
 			State M5state
 		}
 		Source struct {
@@ -165,7 +167,8 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Start struct {
+		pad_cgo_1 [4]byte
+		Start     struct {
 			Start M5time
 			State M5state
 		}
@@ -185,8 +188,9 @@ type (
 			Total float32
 			State M5state
 		}
-		Byte struct {
-			Byte  int32
+		pad_cgo_2 [4]byte
+		Byte      struct {
+			Byte  int64
 			State M5state
 		}
 	}
@@ -225,10 +229,11 @@ type (
 		Tp uint32
 	}
 	Dbbcnn_cmd struct {
-		Freq   uint32
-		Source int32
-		Bw     int32
-		Avper  int32
+		Freq      uint64
+		Source    int32
+		Bw        int32
+		Avper     int32
+		pad_cgo_0 [4]byte
 	}
 	Dbbcnn_mon struct {
 		Agc   int32
@@ -274,6 +279,7 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
+		pad_cgo_0  [4]byte
 		Start_byte struct {
 			Start_byte int64
 			State      M5state
@@ -287,7 +293,8 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Current struct {
+		pad_cgo_1 [4]byte
+		Current   struct {
 			Current int64
 			State   M5state
 		}
@@ -295,6 +302,7 @@ type (
 			Scan_number int32
 			State       M5state
 		}
+		pad_cgo_2 [4]byte
 	}
 	Disk_pos_mon struct {
 		Record struct {
@@ -327,8 +335,9 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Scan struct {
-			Scan  int32
+		pad_cgo_0 [4]byte
+		Scan      struct {
+			Scan  int64
 			State M5state
 		}
 	}
@@ -383,12 +392,12 @@ type (
 		Track    int32
 		Amp      float32
 		Phase    float32
-		Parity   uint32
-		Crcc_a   uint32
-		Crcc_b   uint32
-		Resync   uint32
-		Nosync   uint32
-		Num_bits uint32
+		Parity   uint64
+		Crcc_a   uint64
+		Crcc_b   uint64
+		Resync   uint64
+		Nosync   uint64
+		Num_bits uint64
 	}
 	Dqa_cmd struct {
 		Dur int32
@@ -410,19 +419,19 @@ type (
 	}
 	Flux_ds struct {
 		Name      [11]byte
-		Type      int8
+		Type      byte
 		Fmin      float32
 		Fmax      float32
 		Fcoeff    [3]float32
 		Size      float32
-		Model     int8
+		Model     byte
 		pad_cgo_0 [3]byte
 		Mcoeff    [6]float32
 	}
 	Form4_cmd struct {
 		Mode      int32
 		Rate      int32
-		Enable    [2]uint32
+		Enable    [2]uint64
 		Aux       [2]uint32
 		Codes     [64]int32
 		Bits      int32
@@ -443,9 +452,9 @@ type (
 		Version  int32
 	}
 	Fscom struct {
-		Iclbox      int32
-		Iclopr      int32
-		Nums        [40]int32
+		Iclbox      int64
+		Iclopr      int64
+		Nums        [40]int64
 		AZOFF       float32
 		DECOFF      float32
 		ELOFF       float32
@@ -457,7 +466,8 @@ type (
 		ILOKVC      int32
 		ITRAKA      [2]int32
 		ITRAKB      [2]int32
-		TPIVC       [15]uint32
+		pad_cgo_0   [4]byte
+		TPIVC       [15]uint64
 		ISTPTP      [2]float32
 		ITACTP      [2]float32
 		KHALT       int32
@@ -486,6 +496,7 @@ type (
 		Epoch       float32
 		Cablev      float32
 		Height      float32
+		pad_cgo_1   [4]byte
 		Ra50        float64
 		Dec50       float64
 		Radat       float64
@@ -500,13 +511,13 @@ type (
 		Idevant     [64]byte
 		Idevgpib    [64]byte
 		Idevlog     [64][5]byte
-		Ndevlog     int32
+		Ndevlog     int64
 		Imodfm      int32
 		Ipashd      [2][2]int32
 		Iratfm      int32
 		Ispeed      [2]int32
 		Idirtp      [2]int32
-		Cips        [2]int32
+		Cips        [2]int64
 		Bit_density [2]int32
 		Ienatp      [2]int32
 		Inp1if      int32
@@ -530,33 +541,36 @@ type (
 			Allocated int32
 			Name      [32][5]byte
 		}
-		Check struct {
+		pad_cgo_2 [4]byte
+		Check     struct {
 			Bbc       [16]int32
-			Bbc_time  [16]int32
+			Bbc_time  [16]int64
 			Dist      [2]int32
 			Vform     int32
-			Fm_cn_tm  int32
+			pad_cgo_0 [4]byte
+			Fm_cn_tm  int64
 			Rec       [2]int32
 			Vkrepro   [2]int32
 			Vkenable  [2]int32
 			Vkmove    [2]int32
 			Systracks [2]int32
-			Rc_mv_tm  [2]int32
+			Rc_mv_tm  [2]int64
 			Vklowtape [2]int32
 			Vkload    [2]int32
-			Rc_ld_tm  [2]int32
+			Rc_ld_tm  [2]int64
 			S2rec     S2rec_check
 			K4rec     K4rec_check
 			Ifp       [4]int32
-			Ifp_time  [4]int32
+			pad_cgo_1 [4]byte
+			Ifp_time  [4]int64
 		}
 		Stcnm   [4][2]byte
 		Stchk   [4]int32
 		Dist    [2]Dist_cmd
 		Bbc     [16]Bbc_cmd
-		Tpi     [36]int32
-		Tpical  [36]int32
-		Tpizero [36]int32
+		Tpi     [36]int64
+		Tpical  [36]int64
+		Tpizero [36]int64
 		Equip   struct {
 			Rack         int32
 			Drive        [2]int32
@@ -579,7 +593,7 @@ type (
 		Rec_mode     Rec_mode_cmd
 		Data_valid   [2]Data_valid_cmd
 		S2label      S2label_cmd
-		pad_cgo_0    [3]byte
+		pad_cgo_3    [7]byte
 		Form4        Form4_cmd
 		Diaman       float32
 		Slew1        float32
@@ -593,16 +607,16 @@ type (
 		I20kch       int32
 		Time         struct {
 			Rate       [2]float32
-			Offset     [2]int32
-			Epoch      [2]int32
-			Span       [2]int32
-			Secs_off   int32
+			Offset     [2]int64
+			Epoch      [2]int64
+			Span       [2]int64
+			Secs_off   int64
 			Index      int32
 			Icomputer  [2]int32
-			Model      int8
+			Model      byte
 			pad_cgo_0  [3]byte
-			Ticks_off  uint32
-			Usecs_off  int32
+			Ticks_off  uint64
+			Usecs_off  int64
 			Init_error int32
 			Init_errno int32
 		}
@@ -611,8 +625,8 @@ type (
 		Horaz        [30]float32
 		Horel        [30]float32
 		Mcb_dev      [64]byte
-		Hwid         uint8
-		pad_cgo_1    [3]byte
+		Hwid         byte
+		pad_cgo_4    [3]byte
 		Iw_motion    int32
 		Lowtp        [2]int32
 		Form_version int32
@@ -623,11 +637,13 @@ type (
 			S2rec [2]struct {
 				Rstate         int32
 				Rstate_valid   int32
-				Position       int32
-				Posvar         int32
+				Position       int64
+				Posvar         int64
 				Position_valid int32
+				pad_cgo_0      [4]byte
 			}
 			S2rec_inuse int32
+			pad_cgo_0   [4]byte
 		}
 		Freqvc                   [15]float32
 		Ibwvc                    [15]int32
@@ -643,6 +659,7 @@ type (
 		Wrvolt42                 [2]float32
 		User_dev1_name           [2]byte
 		User_dev2_name           [2]byte
+		pad_cgo_5                [4]byte
 		User_dev1_value          float64
 		User_dev2_value          float64
 		Rvac                     [2]Rvac_cmd
@@ -651,13 +668,14 @@ type (
 		Pcalform                 Pcalform_cmd
 		Pcald                    Pcald_cmd
 		Extbwvc                  [15]float32
-		Freqif3                  int32
+		pad_cgo_6                [4]byte
+		Freqif3                  int64
 		Imixif3                  int32
 		Pcalports                Pcalports_cmd
 		K4_rec_state             int32
 		K4st                     K4st_cmd
 		K4tape_sqn               [9]byte
-		pad_cgo_2                [3]byte
+		pad_cgo_7                [3]byte
 		K4vclo                   K4vclo_cmd
 		K4vc                     K4vc_cmd
 		K4vcif                   K4vcif_cmd
@@ -665,7 +683,7 @@ type (
 		K3fm                     K3fm_cmd
 		Reccpu                   [2]int32
 		K4label                  K4label_cmd
-		pad_cgo_3                [3]byte
+		pad_cgo_8                [3]byte
 		K4rec_mode               K4rec_mode_cmd
 		K4recpatch               K4recpatch_cmd
 		K4pcalports              K4pcalports_cmd
@@ -681,15 +699,15 @@ type (
 		Erchk                    int32
 		Ifd_set                  int32
 		If3_set                  int32
-		Bbc_tpi                  [16][2]uint32
-		Vifd_tpi                 [4]uint32
-		Mifd_tpi                 [3]uint32
+		Bbc_tpi                  [16][2]uint64
+		Vifd_tpi                 [4]uint64
+		Mifd_tpi                 [3]uint64
 		Cablevl                  float32
 		Cablediff                float32
 		Imk4fmv                  int32
 		Tpicd                    Tpicd_cmd
 		ITPIVC                   [15]int32
-		Tpigain                  [36]int32
+		Tpigain                  [36]int64
 		Iapdflg                  int32
 		K4rec_mode_stat          int32
 		Onoff                    Onoff_cmd
@@ -697,28 +715,31 @@ type (
 		Iswif3_fs                [4]int32
 		Ipcalif3                 int32
 		Flux                     [100]Flux_ds
-		Tpidiff                  [36]int32
-		Tpidiffgain              [36]int32
+		pad_cgo_9                [4]byte
+		Tpidiff                  [36]int64
+		Tpidiffgain              [36]int64
 		Caltemps                 [36]float32
 		Calrx                    Calrx_cmd
 		Ibds                     int32
 		Ds_dev                   [64]byte
-		N_das                    uint8
-		Lba_image_reject_filters uint8
-		pad_cgo_4                [2]byte
+		N_das                    byte
+		Lba_image_reject_filters byte
+		pad_cgo_10               [2]byte
 		Lba_digital_input_format uint32
+		pad_cgo_11               [4]byte
 		Das                      [2]Das
-		Ifp_tpi                  [4]uint32
-		M_das                    uint8
+		Ifp_tpi                  [4]uint64
+		M_das                    byte
 		Mk5vsn                   [33]byte
-		pad_cgo_5                [2]byte
-		Mk5vsn_logchg            int32
-		Logchg                   int32
+		pad_cgo_12               [6]byte
+		Mk5vsn_logchg            int64
+		Logchg                   int64
 		User_device              User_device_cmd
 		Disk_record              Disk_record_cmd
 		Monit5                   struct {
-			Pong int32
-			Ping [2]Monit5_ping
+			Pong      int32
+			pad_cgo_0 [4]byte
+			Ping      [2]Monit5_ping
 		}
 		Disk2file Disk2file_cmd
 		In2net    In2net_cmd
@@ -726,6 +747,7 @@ type (
 			Normal_end  int32
 			Other_error int32
 		}
+		pad_cgo_13        [4]byte
 		S2bbc             [4]S2bbc_data
 		S2das             S2das_check
 		Ntp_synch_unknown int32
@@ -736,11 +758,12 @@ type (
 			pad_cgo_0 [1]byte
 		}
 		Mk5host         [129]byte
-		pad_cgo_6       [3]byte
+		pad_cgo_14      [3]byte
 		Mk5b_mode       Mk5b_mode_cmd
 		Vsi4            Vsi4_cmd
 		Holog           Holog_cmd
 		Satellite       Satellite_cmd
+		pad_cgo_15      [4]byte
 		Ephem           [14400]Satellite_ephem
 		Satoff          Satoff_cmd
 		Tle             Tle_cmd
@@ -756,7 +779,7 @@ type (
 		M5b_crate       int32
 		Dbbcddcvl       [1]byte
 		Dbbcddcvs       [16]byte
-		pad_cgo_7       [3]byte
+		pad_cgo_16      [3]byte
 		Dbbcddcvc       int32
 		Mk6_units       [2]int32
 		Mk6_active      [2]int32
@@ -784,7 +807,8 @@ type (
 			Pcal_amp  [1]byte
 			pad_cgo_0 [3]byte
 		}
-		Monit6 Monit6
+		Monit6     Monit6
+		pad_cgo_17 [4]byte
 	}
 	Fserr_cls struct {
 		Buf       [125]byte
@@ -793,30 +817,32 @@ type (
 	}
 	Ft struct {
 		Sync             uint32
-		Nco_centre_value uint32
-		Nco_offset_value uint32
-		Nco_phase_value  uint32
-		Nco_timer_value  uint32
+		pad_cgo_0        [4]byte
+		Nco_centre_value uint64
+		Nco_offset_value uint64
+		Nco_phase_value  uint64
+		Nco_timer_value  uint64
 		Nco_test         uint32
 		Nco_use_offset   uint32
 		Nco_sync_reset   uint32
 		Nco_use_timer    uint32
-		Q_fir_no         uint8
-		I_fir_no         uint8
-		Clock_decimation int8
-		pad_cgo_0        [1]byte
+		Q_fir_no         byte
+		I_fir_no         byte
+		Clock_decimation byte
+		pad_cgo_1        [1]byte
 		Add_sub          Mux
 		Usb_mux          Mux
 		Lsb_mux          Mux
-		Usb_threshold    uint8
-		Lsb_threshold    uint8
-		pad_cgo_1        [2]byte
+		Usb_threshold    byte
+		Lsb_threshold    byte
+		pad_cgo_2        [2]byte
 		Usb_servo        Servo
 		Lsb_servo        Servo
 		Flip_usb         uint32
 		Flip_lsb         uint32
 		Monitor          Mux
 		Digout           Digout
+		pad_cgo_3        [4]byte
 	}
 	Holog_cmd struct {
 		Az           float32
@@ -840,31 +866,33 @@ type (
 		Magn_stats     uint32
 		Corr_type      uint32
 		Corr_source    [2]uint32
-		At_clock_delay int8
+		At_clock_delay byte
 		pad_cgo_0      [3]byte
 		Ft_lo          float64
 		Ft_filter_mode uint32
+		pad_cgo_1      [4]byte
 		Ft_offs        float64
 		Ft_phase       float64
 		Track          [2]byte
-		Initialised    int8
-		pad_cgo_1      [1]byte
+		Initialised    byte
+		pad_cgo_2      [1]byte
 		Source         int32
 		Filter_output  uint32
 		Bs             Bs
+		pad_cgo_3      [4]byte
 		Ft             Ft
 		Out            Out
 		Temp_analog    float32
 		Pll_ld         float32
 		Pll_vc         float32
-		Ref_err        uint8
-		Sync_err       uint8
-		pad_cgo_2      [2]byte
+		Ref_err        byte
+		Sync_err       byte
+		pad_cgo_4      [2]byte
 		Temp_digital   float32
-		Processing     uint8
-		Clk_err        uint8
-		Blank          uint8
-		pad_cgo_3      [1]byte
+		Processing     byte
+		Clk_err        byte
+		Blank          byte
+		pad_cgo_5      [5]byte
 	}
 	In2net_cmd struct {
 		Control struct {
@@ -890,7 +918,8 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Received struct {
+		pad_cgo_0 [4]byte
+		Received  struct {
 			Received int64
 			State    M5state
 		}
@@ -910,7 +939,7 @@ type (
 	}
 	K3fm_mon struct {
 		Daytime [15]byte
-		Status  [3]uint8
+		Status  [3]byte
 	}
 	K4label_cmd struct {
 		Label [9]byte
@@ -963,7 +992,7 @@ type (
 		Att [4]int32
 	}
 	K4vclo_cmd struct {
-		Freq [16]int32
+		Freq [16]int64
 	}
 	K4vclo_mon struct {
 		Yes  [16]byte
@@ -993,6 +1022,7 @@ type (
 		Minute            int32
 		Seconds           float64
 		Seconds_precision int32
+		pad_cgo_0         [4]byte
 	}
 	Mcb_cmd struct {
 		Device    [2]byte
@@ -1009,8 +1039,9 @@ type (
 			Source int32
 			State  M5state
 		}
-		Mask struct {
-			Mask  uint32
+		pad_cgo_0 [4]byte
+		Mask      struct {
+			Mask  uint64
 			State M5state
 		}
 		Decimate struct {
@@ -1025,6 +1056,7 @@ type (
 			Disk  int32
 			State M5state
 		}
+		pad_cgo_1 [4]byte
 	}
 	Mk6_disk_pos_mon struct {
 		Record struct {
@@ -1092,7 +1124,7 @@ type (
 	}
 	Mk6_scan_check_mon struct {
 		Scan struct {
-			Scan  int32
+			Scan  int64
 			State M5state
 		}
 		Label struct {
@@ -1109,7 +1141,8 @@ type (
 			Code  int32
 			State M5state
 		}
-		Start struct {
+		pad_cgo_0 [4]byte
+		Start     struct {
 			Start M5time
 			State M5state
 		}
@@ -1121,7 +1154,8 @@ type (
 			Total float32
 			State M5state
 		}
-		Missing struct {
+		pad_cgo_1 [4]byte
+		Missing   struct {
 			Missing int64
 			State   M5state
 		}
@@ -1130,12 +1164,14 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
+		pad_cgo_2 [4]byte
 	}
 	Monit5_ping struct {
-		Active int32
-		Bank   [2]struct {
+		Active    int32
+		pad_cgo_0 [4]byte
+		Bank      [2]struct {
 			Vsn       [33]byte
-			pad_cgo_0 [3]byte
+			pad_cgo_0 [7]byte
 			Seconds   float64
 			Gb        float64
 			Percent   float64
@@ -1147,7 +1183,7 @@ type (
 		Pcal [2][4]int32
 	}
 	Mux struct {
-		Setting   uint8
+		Setting   byte
 		pad_cgo_0 [3]byte
 		Mode      uint32
 	}
@@ -1159,20 +1195,22 @@ type (
 		Wait         int32
 		Ssize        float32
 		Proc         [33]byte
-		pad_cgo_0    [3]byte
+		pad_cgo_0    [7]byte
 		Devices      [134]Onoff_devices
 		Itpis        [134]int32
 		Fwhm         float32
 		Stop_request int32
 		Setup        int32
+		pad_cgo_1    [4]byte
 	}
 	Onoff_devices struct {
 		Lwhat     [4]byte
-		Pol       int8
+		Pol       byte
 		pad_cgo_0 [3]byte
 		Ifchain   int32
 		Flux      float32
 		Corr      float32
+		pad_cgo_1 [4]byte
 		Center    float64
 		Fwhm      float32
 		Tcal      float32
@@ -1184,7 +1222,7 @@ type (
 		S2_hi            S2_out
 		Atmb_corr_source uint32
 		Mb_corr_2_source uint32
-		At_clock_delay   uint8
+		At_clock_delay   byte
 		pad_cgo_0        [3]byte
 	}
 	Pcald_cmd struct {
@@ -1214,17 +1252,18 @@ type (
 	}
 	Rclcn_req_buf struct {
 		Count       int32
-		Class_fs    int32
+		pad_cgo_0   [4]byte
+		Class_fs    int64
 		Nchars      int32
 		Prev_nchars int32
-		Buf         [512]uint8
+		Buf         [512]byte
 	}
 	Rclcn_res_buf struct {
 		Class_fs int32
 		Count    int32
 		Ifc      int32
 		Nchars   int32
-		Buf      [512]uint8
+		Buf      [512]byte
 	}
 	Rdbe_atten_cmd struct {
 		Ifc struct {
@@ -1301,8 +1340,9 @@ type (
 		Pcaloff    float64
 	}
 	Rdbe_tsys_data struct {
-		Data  [2]Rdbe_tsys_cycle
-		Iping int32
+		Data      [2]Rdbe_tsys_cycle
+		Iping     int32
+		pad_cgo_0 [4]byte
 	}
 	Rdtcn struct {
 		Control [2]Rdtcn_control
@@ -1322,14 +1362,16 @@ type (
 		Num_groups int32
 	}
 	Regs struct {
-		Error   uint8
-		Warning uint8
+		Error   byte
+		Warning byte
 	}
 	Req_buf struct {
-		Count    int32
-		Class_fs int32
-		Nchars   int32
-		Buf      [512]uint8
+		Count     int32
+		pad_cgo_0 [4]byte
+		Class_fs  int64
+		Nchars    int32
+		Buf       [512]byte
+		pad_cgo_1 [4]byte
 	}
 	Req_rec struct {
 		Type      int32
@@ -1343,13 +1385,13 @@ type (
 		Count    int32
 		Ifc      int32
 		Nchars   int32
-		Buf      [512]uint8
+		Buf      [512]byte
 	}
 	Res_rec struct {
 		State int32
 		Code  int32
 		Data  uint32
-		Array [24]uint8
+		Array [24]byte
 	}
 	Rtime_mon struct {
 		Seconds struct {
@@ -1387,14 +1429,16 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Mask struct {
-			Mask  uint32
+		pad_cgo_0 [4]byte
+		Mask      struct {
+			Mask  uint64
 			State M5state
 		}
 		Decimate struct {
 			Decimate int32
 			State    M5state
 		}
+		pad_cgo_1 [4]byte
 	}
 	Rvac_cmd struct {
 		Inches float32
@@ -1404,14 +1448,14 @@ type (
 		Volts float32
 	}
 	Rxgain_ds struct {
-		Type      int8
+		Type      byte
 		pad_cgo_0 [3]byte
 		Lo        [2]float32
 		Year      int32
 		Month     int32
 		Day       int32
 		Fwhm      struct {
-			Model     int8
+			Model     byte
 			pad_cgo_0 [3]byte
 			Coeff     float32
 		}
@@ -1419,18 +1463,18 @@ type (
 		pad_cgo_1 [2]byte
 		Dpfu      [2]float32
 		Gain      struct {
-			Form      int8
-			Type      int8
+			Form      byte
+			Type      byte
 			pad_cgo_0 [2]byte
 			Coeff     [10]float32
 			Ncoeff    int32
-			Opacity   int8
+			Opacity   byte
 			pad_cgo_1 [3]byte
 		}
 		Tcal_ntable int32
 		Tcal_npol   [2]int32
 		Tcal        [600]struct {
-			Pol       int8
+			Pol       byte
 			pad_cgo_0 [3]byte
 			Freq      float32
 			Tcal      float32
@@ -1443,23 +1487,23 @@ type (
 		}
 	}
 	S2bbc_data struct {
-		Freq      uint32
+		Freq      uint64
 		Tpiavg    uint16
-		Ifsrc     int8
+		Ifsrc     byte
 		Bw        [2]byte
-		Agcmode   int8
-		Init      int8
+		Agcmode   byte
+		Init      byte
 		pad_cgo_0 [1]byte
 	}
 	S2das_check struct {
-		Check     uint32
-		Agc       int8
-		Encode    int8
+		Check     uint64
+		Agc       byte
+		Encode    byte
 		Mode      [21]byte
-		FSstatus  int8
+		FSstatus  byte
 		SeqName   [25]byte
-		BW        int8
-		pad_cgo_0 [2]byte
+		BW        byte
+		pad_cgo_0 [6]byte
 	}
 	S2label_cmd struct {
 		Tapeid   [21]byte
@@ -1503,18 +1547,19 @@ type (
 		pad_cgo_1 [3]byte
 	}
 	Satellite_ephem struct {
-		T  int32
+		T  int64
 		Az float64
 		El float64
 	}
 	Satoff_cmd struct {
-		Seconds float64
-		Cross   float64
-		Hold    int32
+		Seconds   float64
+		Cross     float64
+		Hold      int32
+		pad_cgo_0 [4]byte
 	}
 	Scan_check_mon struct {
 		Scan struct {
-			Scan  int32
+			Scan  int64
 			State M5state
 		}
 		Label struct {
@@ -1522,7 +1567,8 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
-		Start struct {
+		pad_cgo_0 [4]byte
+		Start     struct {
 			Start M5time
 			State M5state
 		}
@@ -1566,14 +1612,15 @@ type (
 			pad_cgo_0 [3]byte
 			State     M5state
 		}
+		pad_cgo_1 [4]byte
 	}
 	Scan_name_cmd struct {
 		Name       [17]byte
 		Session    [17]byte
 		Station    [17]byte
-		pad_cgo_0  [1]byte
-		Duration   int32
-		Continuous int32
+		pad_cgo_0  [5]byte
+		Duration   int64
+		Continuous int64
 	}
 	Servo struct {
 		Setting   uint16
@@ -1634,7 +1681,7 @@ type (
 		Tle1      [70]byte
 		Tle2      [70]byte
 		pad_cgo_0 [3]byte
-		Catnum    [3]int32
+		Catnum    [3]int64
 	}
 	Tpicd_cmd struct {
 		Continuous   int32

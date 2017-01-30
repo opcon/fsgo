@@ -52,19 +52,19 @@ type (
 		Flip_64MHz_out      uint32
 		Digital_format      uint32
 		Flip_input          uint32
-		P_hilbert_no        uint8
-		N_hilbert_no        uint8
+		P_hilbert_no        byte
+		N_hilbert_no        byte
 		pad_cgo_0           [2]byte
 		Sub_band            uint32
-		Q_fir_no            uint8
-		I_fir_no            uint8
-		Clock_decimation    int8
+		Q_fir_no            byte
+		I_fir_no            byte
+		Clock_decimation    byte
 		pad_cgo_1           [1]byte
 		Add_sub             Mux
 		Usb_mux             Mux
 		Lsb_mux             Mux
-		Usb_threshold       uint8
-		Lsb_threshold       uint8
+		Usb_threshold       byte
+		Lsb_threshold       byte
 		pad_cgo_2           [2]byte
 		Usb_servo           Servo
 		Lsb_servo           Servo
@@ -109,10 +109,10 @@ type (
 		}
 	}
 	Cmd_ds struct {
-		Name      *int8
-		Equal     int8
+		Name      *byte
+		Equal     byte
 		pad_cgo_0 [3]byte
-		Argv      [100]*int8
+		Argv      [100]*byte
 	}
 	Das struct {
 		Ds_mnem          [3]byte
@@ -410,12 +410,12 @@ type (
 	}
 	Flux_ds struct {
 		Name      [11]byte
-		Type      int8
+		Type      byte
 		Fmin      float32
 		Fmax      float32
 		Fcoeff    [3]float32
 		Size      float32
-		Model     int8
+		Model     byte
 		pad_cgo_0 [3]byte
 		Mcoeff    [6]float32
 	}
@@ -599,7 +599,7 @@ type (
 			Secs_off   int32
 			Index      int32
 			Icomputer  [2]int32
-			Model      int8
+			Model      byte
 			pad_cgo_0  [3]byte
 			Ticks_off  uint32
 			Usecs_off  int32
@@ -611,7 +611,7 @@ type (
 		Horaz        [30]float32
 		Horel        [30]float32
 		Mcb_dev      [64]byte
-		Hwid         uint8
+		Hwid         byte
 		pad_cgo_1    [3]byte
 		Iw_motion    int32
 		Lowtp        [2]int32
@@ -703,13 +703,13 @@ type (
 		Calrx                    Calrx_cmd
 		Ibds                     int32
 		Ds_dev                   [64]byte
-		N_das                    uint8
-		Lba_image_reject_filters uint8
+		N_das                    byte
+		Lba_image_reject_filters byte
 		pad_cgo_4                [2]byte
 		Lba_digital_input_format uint32
 		Das                      [2]Das
 		Ifp_tpi                  [4]uint32
-		M_das                    uint8
+		M_das                    byte
 		Mk5vsn                   [33]byte
 		pad_cgo_5                [2]byte
 		Mk5vsn_logchg            int32
@@ -801,15 +801,15 @@ type (
 		Nco_use_offset   uint32
 		Nco_sync_reset   uint32
 		Nco_use_timer    uint32
-		Q_fir_no         uint8
-		I_fir_no         uint8
-		Clock_decimation int8
+		Q_fir_no         byte
+		I_fir_no         byte
+		Clock_decimation byte
 		pad_cgo_0        [1]byte
 		Add_sub          Mux
 		Usb_mux          Mux
 		Lsb_mux          Mux
-		Usb_threshold    uint8
-		Lsb_threshold    uint8
+		Usb_threshold    byte
+		Lsb_threshold    byte
 		pad_cgo_1        [2]byte
 		Usb_servo        Servo
 		Lsb_servo        Servo
@@ -840,14 +840,14 @@ type (
 		Magn_stats     uint32
 		Corr_type      uint32
 		Corr_source    [2]uint32
-		At_clock_delay int8
+		At_clock_delay byte
 		pad_cgo_0      [3]byte
 		Ft_lo          float64
 		Ft_filter_mode uint32
 		Ft_offs        float64
 		Ft_phase       float64
 		Track          [2]byte
-		Initialised    int8
+		Initialised    byte
 		pad_cgo_1      [1]byte
 		Source         int32
 		Filter_output  uint32
@@ -857,13 +857,13 @@ type (
 		Temp_analog    float32
 		Pll_ld         float32
 		Pll_vc         float32
-		Ref_err        uint8
-		Sync_err       uint8
+		Ref_err        byte
+		Sync_err       byte
 		pad_cgo_2      [2]byte
 		Temp_digital   float32
-		Processing     uint8
-		Clk_err        uint8
-		Blank          uint8
+		Processing     byte
+		Clk_err        byte
+		Blank          byte
 		pad_cgo_3      [1]byte
 	}
 	In2net_cmd struct {
@@ -910,7 +910,7 @@ type (
 	}
 	K3fm_mon struct {
 		Daytime [15]byte
-		Status  [3]uint8
+		Status  [3]byte
 	}
 	K4label_cmd struct {
 		Label [9]byte
@@ -1147,7 +1147,7 @@ type (
 		Pcal [2][4]int32
 	}
 	Mux struct {
-		Setting   uint8
+		Setting   byte
 		pad_cgo_0 [3]byte
 		Mode      uint32
 	}
@@ -1168,7 +1168,7 @@ type (
 	}
 	Onoff_devices struct {
 		Lwhat     [4]byte
-		Pol       int8
+		Pol       byte
 		pad_cgo_0 [3]byte
 		Ifchain   int32
 		Flux      float32
@@ -1184,7 +1184,7 @@ type (
 		S2_hi            S2_out
 		Atmb_corr_source uint32
 		Mb_corr_2_source uint32
-		At_clock_delay   uint8
+		At_clock_delay   byte
 		pad_cgo_0        [3]byte
 	}
 	Pcald_cmd struct {
@@ -1217,14 +1217,14 @@ type (
 		Class_fs    int32
 		Nchars      int32
 		Prev_nchars int32
-		Buf         [512]uint8
+		Buf         [512]byte
 	}
 	Rclcn_res_buf struct {
 		Class_fs int32
 		Count    int32
 		Ifc      int32
 		Nchars   int32
-		Buf      [512]uint8
+		Buf      [512]byte
 	}
 	Rdbe_atten_cmd struct {
 		Ifc struct {
@@ -1322,14 +1322,14 @@ type (
 		Num_groups int32
 	}
 	Regs struct {
-		Error   uint8
-		Warning uint8
+		Error   byte
+		Warning byte
 	}
 	Req_buf struct {
 		Count    int32
 		Class_fs int32
 		Nchars   int32
-		Buf      [512]uint8
+		Buf      [512]byte
 	}
 	Req_rec struct {
 		Type      int32
@@ -1343,13 +1343,13 @@ type (
 		Count    int32
 		Ifc      int32
 		Nchars   int32
-		Buf      [512]uint8
+		Buf      [512]byte
 	}
 	Res_rec struct {
 		State int32
 		Code  int32
 		Data  uint32
-		Array [24]uint8
+		Array [24]byte
 	}
 	Rtime_mon struct {
 		Seconds struct {
@@ -1404,14 +1404,14 @@ type (
 		Volts float32
 	}
 	Rxgain_ds struct {
-		Type      int8
+		Type      byte
 		pad_cgo_0 [3]byte
 		Lo        [2]float32
 		Year      int32
 		Month     int32
 		Day       int32
 		Fwhm      struct {
-			Model     int8
+			Model     byte
 			pad_cgo_0 [3]byte
 			Coeff     float32
 		}
@@ -1419,18 +1419,18 @@ type (
 		pad_cgo_1 [2]byte
 		Dpfu      [2]float32
 		Gain      struct {
-			Form      int8
-			Type      int8
+			Form      byte
+			Type      byte
 			pad_cgo_0 [2]byte
 			Coeff     [10]float32
 			Ncoeff    int32
-			Opacity   int8
+			Opacity   byte
 			pad_cgo_1 [3]byte
 		}
 		Tcal_ntable int32
 		Tcal_npol   [2]int32
 		Tcal        [600]struct {
-			Pol       int8
+			Pol       byte
 			pad_cgo_0 [3]byte
 			Freq      float32
 			Tcal      float32
@@ -1445,20 +1445,20 @@ type (
 	S2bbc_data struct {
 		Freq      uint32
 		Tpiavg    uint16
-		Ifsrc     int8
+		Ifsrc     byte
 		Bw        [2]byte
-		Agcmode   int8
-		Init      int8
+		Agcmode   byte
+		Init      byte
 		pad_cgo_0 [1]byte
 	}
 	S2das_check struct {
 		Check     uint32
-		Agc       int8
-		Encode    int8
+		Agc       byte
+		Encode    byte
 		Mode      [21]byte
-		FSstatus  int8
+		FSstatus  byte
 		SeqName   [25]byte
-		BW        int8
+		BW        byte
 		pad_cgo_0 [2]byte
 	}
 	S2label_cmd struct {

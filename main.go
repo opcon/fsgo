@@ -11,6 +11,8 @@ import (
 	_ "fs/versions/all"
 )
 
+const basepath = "/usr2/fs"
+
 type FieldSystem versions.FieldSystem
 
 func Attach() (FieldSystem, error) {
