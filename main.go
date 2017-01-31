@@ -14,6 +14,7 @@ import (
 const basepath = "/usr2/fs"
 
 type FieldSystem versions.FieldSystem
+type Rdbe versions.Rdbe
 
 func Attach() (FieldSystem, error) {
 	vers, err := InstalledVersion()

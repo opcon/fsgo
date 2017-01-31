@@ -10,20 +10,20 @@ func (fs *Fscom) RdbeNum() int {
 }
 
 func (fs *Fscom) RdbeMap(index int) (m map[string]interface{}, err error) {
-	if index < 0 || index >= fs.NumRdbes {
+	if index < 0 || index >= fs.RdbeNum() {
 		return nil, errors.New("invalid RDBE id")
 	}
 
 	i := fs.Rdbe_tsys_data[index].Iping
-	if i < 0 || i >= len(fs.Rdbe_tsys_data[index].Data) {
-		return nil, errors.New("invalid iping index")
+	if i < 0 || int(i) >= len(fs.Rdbe_tsys_data[index].Data) {
+		return nil, errors.New("no data available")
 	}
 
 	return structs.Map(fs.Rdbe_tsys_data[index].Data[i]), nil
 }
 
 func (fs *Fscom) RdbeUpdatedFn(index int) (func() bool, error) {
-	if index < 0 || index >= fs.NumRdbes {
+	if index < 0 || index >= fs.RdbeNum() {
 		return nil, errors.New("invalid RDBE index")
 	}
 
@@ -31,10 +31,11 @@ func (fs *Fscom) RdbeUpdatedFn(index int) (func() bool, error) {
 
 	return func() bool {
 		j := fs.Rdbe_tsys_data[index].Iping
-		if j < 0 || j >= len(fs.Rdbe_tsys_data[index].Data) || i == j {
+		if j < 0 || int(j) >= len(fs.Rdbe_tsys_data[index].Data) || i == j {
 			return false
 		}
 		i = j
 		return true
-	}
+	}, nil
+
 }
