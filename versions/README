@@ -1,0 +1,3 @@
+To add a new version of the FS, run `make`
+
+If you wish to add RDBE support, copy `extras/rdbe.go` into the fsXX.XX.XX folder
