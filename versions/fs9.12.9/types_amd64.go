@@ -1,5 +1,5 @@
 // Created by cgo -godefs - DO NOT EDIT
-// cgo -godefs types.go
+// cgo -godefs fs9.12.9/types.go
 
 package fs
 
@@ -809,7 +809,6 @@ type (
 		}
 		Monit6     Monit6
 		pad_cgo_17 [4]byte
-		Rdbe_sync  [4]int64
 	}
 	Fserr_cls struct {
 		Buf       [125]byte

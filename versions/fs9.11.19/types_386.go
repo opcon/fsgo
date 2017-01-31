@@ -1,5 +1,5 @@
 // Created by cgo -godefs - DO NOT EDIT
-// cgo -godefs types.go
+// cgo -godefs fs9.11.19/types.go
 
 package fs
 

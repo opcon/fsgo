@@ -1,0 +1,2 @@
+This is a moddified version of CGO which includes mdempsky's patch for issue
+#5253 and includes a (poor) fix for #5256

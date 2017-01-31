@@ -1,5 +1,5 @@
 // Created by cgo -godefs - DO NOT EDIT
-// cgo -godefs types.go
+// cgo -godefs fs9.11.8/types.go
 
 package fs
 
@@ -195,8 +195,9 @@ type (
 		Pb_enable int32
 	}
 	Dbbc_cont_cal_cmd struct {
-		Mode    int32
-		Samples int32
+		Mode     int32
+		Polarity int32
+		Samples  int32
 	}
 	Dbbcform_cmd struct {
 		Mode int32
@@ -407,6 +408,26 @@ type (
 	Ds_mon struct {
 		Resp uint16
 		Data [2]byte
+	}
+	Fila10g_mode_cmd struct {
+		Mask struct {
+			Mask  uint32
+			State M5state
+		}
+		Decimate struct {
+			Decimate int32
+			State    M5state
+		}
+		Disk struct {
+			Disk  int32
+			State M5state
+		}
+	}
+	Fila10g_mode_mon struct {
+		Samplerate struct {
+			Samplerate int32
+			State      M5state
+		}
 	}
 	Flux_ds struct {
 		Name      [11]byte
@@ -756,6 +777,10 @@ type (
 		Dbbcddcvs       [16]byte
 		pad_cgo_7       [3]byte
 		Dbbcddcvc       int32
+		Dbbcddcsubv     int32
+		Dbbccontcalpol  int32
+		Fila10g_mode    Fila10g_mode_cmd
+		Fila10gvsi_in   [16]byte
 	}
 	Ft struct {
 		Sync             uint32
@@ -972,8 +997,10 @@ type (
 	}
 	Mk5b_mode_cmd struct {
 		Source struct {
-			Source int32
-			State  M5state
+			Source    int32
+			Magic     [33]byte
+			pad_cgo_0 [3]byte
+			State     M5state
 		}
 		Mask struct {
 			Mask  uint32
@@ -983,6 +1010,11 @@ type (
 			Decimate int32
 			State    M5state
 		}
+		Samplerate struct {
+			Samplerate float32
+			Decimate   int32
+			State      M5state
+		}
 		Fpdp struct {
 			Fpdp  int32
 			State M5state
@@ -990,6 +1022,25 @@ type (
 		Disk struct {
 			Disk  int32
 			State M5state
+		}
+	}
+	Mk5b_mode_mon struct {
+		Format struct {
+			Format    [33]byte
+			pad_cgo_0 [3]byte
+			State     M5state
+		}
+		Tracks struct {
+			Tracks int32
+			State  M5state
+		}
+		Tbitrate struct {
+			Tbitrate float32
+			State    M5state
+		}
+		Framesize struct {
+			Framesize int32
+			State     M5state
 		}
 	}
 	Monit5_ping struct {

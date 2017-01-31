@@ -45,6 +45,8 @@ type (
 	Dqa_mon           C.struct_dqa_mon
 	Ds_cmd            C.struct_ds_cmd
 	Ds_mon            C.struct_ds_mon
+	Fila10g_mode_cmd  C.struct_fila10g_mode_cmd
+	Fila10g_mode_mon  C.struct_fila10g_mode_mon
 	Flux_ds           C.struct_flux_ds
 	Form4_cmd         C.struct_form4_cmd
 	Form4_mon         C.struct_form4_mon
@@ -76,6 +78,7 @@ type (
 	Mcb_cmd           C.struct_mcb_cmd
 	Mcb_mon           C.struct_mcb_mon
 	Mk5b_mode_cmd     C.struct_mk5b_mode_cmd
+	Mk5b_mode_mon     C.struct_mk5b_mode_mon
 	Monit5_ping       C.struct_monit5_ping
 	Mux               C.struct_mux
 	Onoff_cmd         C.struct_onoff_cmd

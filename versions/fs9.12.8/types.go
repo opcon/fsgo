@@ -4,9 +4,9 @@
 package fs
 
 /*
-#include "/usr2/fs/include/params.h"
-#include "/usr2/fs/include/fs_types.h"
-#include "/usr2/fs/include/fscom.h"
+#include "/home/dhorsley/src/fs/include/params.h"
+#include "/home/dhorsley/src/fs/include/fs_types.h"
+#include "/home/dhorsley/src/fs/include/fscom.h"
 */
 import "C"
 

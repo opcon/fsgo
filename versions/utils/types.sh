@@ -30,4 +30,4 @@ f() {
         | sed -r 's/^(.+)$/\t\u\1\tC.struct_\1/' -
     echo ")"
 };
-f | gofmt > types.go
+f | gofmt
