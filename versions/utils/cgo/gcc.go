@@ -2118,7 +2118,10 @@ func (c *typeConv) Struct(dt *dwarf.StructType, pos token.Pos) (expr *ast.Struct
 			anon++
 			ident[name] = name
 		}
-		fld[n] = &ast.Field{Names: []*ast.Ident{c.Ident(ident[name])}, Type: tgo}
+		tag := &ast.BasicLit{
+			Kind:  token.STRING,
+			Value: "`json:\"" + name + "\"`"}
+		fld[n] = &ast.Field{Names: []*ast.Ident{c.Ident(ident[name])}, Type: tgo, Tag: tag}
 		sizes = sizes[0 : n+1]
 		sizes[n] = size
 		off += size
