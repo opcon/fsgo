@@ -1,5 +1,6 @@
 export FSPATH=/usr2/fs
 
+# Needed to override included Makefile
 default: version
 
 # Get version number
@@ -31,3 +32,6 @@ fs$(FS_VERSION)/types_%.go: fs$(FS_VERSION)/types.go utils/cgo/cgo
 		sed -e 's/Pad_cgo/pad_cgo/' -e 's/uint8/byte/' -e 's/int8/byte/' |\
 		gofmt > $@
 	rm -r _obj
+
+utils/cgo/cgo:
+	cd utils/cgo; go build
