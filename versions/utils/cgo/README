@@ -1,2 +1,5 @@
 This is a moddified version of CGO which includes mdempsky's patch for issue
 #5253 and includes a (poor) fix for #5256
+
+Contents of this directory Copyright (c) 2009 The Go Authors. All rights
+reserved. See LICENSE for details.
