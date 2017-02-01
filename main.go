@@ -16,7 +16,7 @@ const basepath = "/usr2/fs"
 type FieldSystem versions.FieldSystem
 type Rdbe versions.Rdbe
 
-func Attach() (FieldSystem, error) {
+func NewFieldSystem() (FieldSystem, error) {
 	vers, err := InstalledVersion()
 	if err != nil {
 		return nil, err
@@ -30,6 +30,15 @@ func Attach() (FieldSystem, error) {
 
 }
 
+func SupportedVersions() []string {
+	versions := make([]string, 0, len(versions.Creators))
+	for k := range versions.Creators {
+		versions = append(versions, k)
+	}
+	return versions
+}
+
+// Parses Makefile in fs directory to find the installed FS version
 func InstalledVersion() (string, error) {
 	r, err := regexp.Compile(`^(\w+)\s*=\s*(\w+)$`)
 	if err != nil {
