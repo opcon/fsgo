@@ -13,7 +13,7 @@ type FieldSystem struct {
 	// TODO(dh): Allow different installation paths
 }
 
-func (f FieldSystem) Attach() (err error) {
+func (f *FieldSystem) Attach() (err error) {
 	key, err := svipc.Ftok(SHM_PATH, SHM_ID)
 	if err != nil {
 		return
@@ -33,6 +33,6 @@ func (f FieldSystem) Attach() (err error) {
 
 func init() {
 	versions.Add(FieldSystemVersion, func() versions.FieldSystem {
-		return FieldSystem{Version: FieldSystemVersion}
+		return &FieldSystem{Version: FieldSystemVersion}
 	})
 }

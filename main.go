@@ -27,9 +27,7 @@ func NewFieldSystem() (FieldSystem, error) {
 	}
 	fs := creator()
 	err = fs.Attach()
-
 	return fs, err
-
 }
 
 func SupportedVersions() []string {

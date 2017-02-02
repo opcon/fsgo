@@ -7,17 +7,17 @@ import (
 	"fs/svipc"
 )
 
-func (f FieldSystem) Log() string {
+func (f *FieldSystem) Log() string {
 	return fsstr(f.Fscom.LLOG[:])
 
 }
-func (f FieldSystem) Schedule() string {
+func (f *FieldSystem) Schedule() string {
 	return fsstr(f.Fscom.LSKD[:])
 }
-func (f FieldSystem) Source() string {
+func (f *FieldSystem) Source() string {
 	return fsstr(f.Fscom.Lsorna[:])
 }
-func (f FieldSystem) SemLocked(semname string) (locked bool, err error) {
+func (f *FieldSystem) SemLocked(semname string) (locked bool, err error) {
 	// FS stores a list of names for semephores in the NSEM group. The list is in
 	// list in f.Fscom.Sem.  This function queies the semephones in that group by name.
 	key, err := svipc.Ftok(NSEM_PATH, NSEM_ID)
@@ -53,7 +53,7 @@ func (f FieldSystem) SemLocked(semname string) (locked bool, err error) {
 	return
 }
 
-func (f FieldSystem) Semaphores() []string {
+func (f *FieldSystem) Semaphores() []string {
 	sems := make([]string, 0, f.Fscom.Sem.Allocated)
 	for i := 0; i < int(f.Fscom.Sem.Allocated); i++ {
 		sems = append(sems, fsstr(f.Fscom.Sem.Name[i][:]))
@@ -61,9 +61,9 @@ func (f FieldSystem) Semaphores() []string {
 	return sems
 }
 
-func (f FieldSystem) Tracking() bool {
+func (f *FieldSystem) Tracking() bool {
 	return f.Fscom.Ionsor == 1
 }
-func (f FieldSystem) DataValid() bool {
+func (f *FieldSystem) DataValid() bool {
 	return f.Fscom.DataValid[0].UserDv == 1
 }
