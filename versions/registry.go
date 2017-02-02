@@ -4,7 +4,7 @@ const (
 	basepath = "/usr2/fs"
 )
 
-type Creator func() (FieldSystem, error)
+type Creator func() FieldSystem
 
 var Creators = map[string]Creator{}
 

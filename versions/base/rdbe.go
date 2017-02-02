@@ -30,8 +30,8 @@ func (fs *Fscom) RdbeUpdatedFn(index int) (func() bool, error) {
 	}
 	i := -1
 	return func() bool {
-		j := fs.RdbeTsysData[index].Iping
-		if j < 0 || int(j) >= len(fs.RdbeTsysData[index].Data) || i == j {
+		j := int(fs.RdbeTsysData[index].Iping)
+		if j < 0 || j >= len(fs.RdbeTsysData[index].Data) || i == j {
 			return false
 		}
 		i = j

@@ -1,7 +1,7 @@
 package versions
 
 type FieldSystem interface {
-	Version() string
+	Attach() error
 	Log() string
 	Schedule() string
 	Source() string

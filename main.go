@@ -25,17 +25,19 @@ func NewFieldSystem() (FieldSystem, error) {
 	if !ok {
 		return nil, fmt.Errorf("error: version %s not supported", vers)
 	}
-	fs, err := creator()
+	fs := creator()
+	err = fs.Attach()
+
 	return fs, err
 
 }
 
 func SupportedVersions() []string {
-	versions := make([]string, 0, len(versions.Creators))
+	v := make([]string, 0, len(versions.Creators))
 	for k := range versions.Creators {
-		versions = append(versions, k)
+		v = append(v, k)
 	}
-	return versions
+	return v
 }
 
 // Parses Makefile in fs directory to find the installed FS version
