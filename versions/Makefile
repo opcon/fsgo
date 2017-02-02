@@ -25,11 +25,11 @@ fs$(FS_VERSION)/types.go: ./utils/types.sh
 	mkdir -p fs$(FS_VERSION)
 	./utils/types.sh > $@
 
-fs$(FS_VERSION)/types_%.go: fs$(FS_VERSION)/types.go utils/cgo/cgo 
+fs$(FS_VERSION)/types_%.go: fs$(FS_VERSION)/types.go utils/cgo/cgo  Makefile
 	mkdir -p fs$(FS_VERSION)
 	export GOARCH=$(basename $*);\
 		./utils/cgo/cgo -godefs $< |\
-		sed -e 's/Pad_cgo/pad_cgo/' -e 's/uint8/byte/' -e 's/int8/byte/' |\
+		sed -e 's/PadCgo/padCgo/' -e 's/uint8/byte/' -e 's/int8/byte/' |\
 		gofmt > $@
 	rm -r _obj
 

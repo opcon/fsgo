@@ -89,7 +89,7 @@ func (fs *Fscom) Tracking() bool {
 	return fs.Ionsor == 1
 }
 func (fs *Fscom) DataValid() bool {
-	return fs.Data_valid[0].User_dv == 1
+	return fs.DataValid[0].UserDv == 1
 }
 
 func (fs *Fscom) Dump() map[string]interface{} {
