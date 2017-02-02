@@ -1,5 +1,10 @@
-This is a moddified version of CGO which includes mdempsky's patch for issue
-#5253 and includes a (poor) fix for #5256
+This is a modified version of the standard go util cgo.  It includes some 
+bug fixes and stylistic changes.
+
+-   mdempsky's patch for issue #5253 (embedded structs)
+-   includes a fix for #5256 (stripping prefixes)
+-   Converts struct fields C in snake_case to Go style CamelCase
+-   Adds json export tags  with the original C name to struct fields
 
 Contents of this directory Copyright (c) 2009 The Go Authors. All rights
 reserved. See LICENSE for details.

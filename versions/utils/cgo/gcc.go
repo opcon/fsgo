@@ -2163,6 +2163,29 @@ func (c *typeConv) Struct(dt *dwarf.StructType, pos token.Pos) (expr *ast.Struct
 	return
 }
 
+func camel(s string) string {
+	var b bytes.Buffer
+	cap := true
+	for i, r := range s {
+		if r == '_' {
+			if i == 0 {
+				b.WriteString("X")
+				cap = false
+				continue
+			}
+			cap = true
+			continue
+		}
+		if cap {
+			b.WriteRune(unicode.ToUpper(r))
+			cap = false
+			continue
+		}
+		b.WriteRune(r)
+	}
+	return b.String()
+}
+
 func upper(s string) string {
 	if s == "" {
 		return ""
@@ -2191,7 +2214,8 @@ func godefsFields(fld []*ast.Field) {
 				n.Name = "Pad_cgo_" + strconv.Itoa(npad)
 				npad++
 			}
-			n.Name = upper(n.Name)
+			// n.Name = upper(n.Name)
+			n.Name = camel(n.Name)
 		}
 	}
 }
