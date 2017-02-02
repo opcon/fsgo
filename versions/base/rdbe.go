@@ -32,6 +32,7 @@ func (f *FieldSystem) RdbeUpdatedFn(index int) (func() bool, error) {
 	return func() bool {
 		j := int(f.Fscom.RdbeTsysData[index].Iping)
 		if j < 0 || j >= len(f.Fscom.RdbeTsysData[index].Data) || i == j {
+			i = j // For case when j < 0
 			return false
 		}
 		i = j
