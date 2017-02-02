@@ -9,5 +9,4 @@ type FieldSystem interface {
 	Semaphores() []string
 	Tracking() bool
 	DataValid() bool
-	Dump() map[string]interface{}
 }

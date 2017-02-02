@@ -5,8 +5,6 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/fatih/structs"
-
 	"fs/svipc"
 )
 
@@ -90,8 +88,4 @@ func (fs *Fscom) Tracking() bool {
 }
 func (fs *Fscom) DataValid() bool {
 	return fs.DataValid[0].UserDv == 1
-}
-
-func (fs *Fscom) Dump() map[string]interface{} {
-	return structs.Map(fs)
 }
