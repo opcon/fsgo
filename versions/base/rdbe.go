@@ -11,15 +11,29 @@ func (f *FieldSystem) RdbeNum() int {
 
 func (f *FieldSystem) RdbeMap(index int) (m map[string]interface{}, err error) {
 	if index < 0 || index >= f.RdbeNum() {
-		return nil, errors.New("invalid RDBE id")
+		err = errors.New("invalid RDBE id")
+		return
 	}
 
-	i := f.Fscom.RdbeTsysData[index].Iping
-	if i < 0 || int(i) >= len(f.Fscom.RdbeTsysData[index].Data) {
-		return nil, errors.New("no data available")
+	i := int(f.Fscom.RdbeTsysData[index].Iping)
+	if i < 0 || i >= len(f.Fscom.RdbeTsysData[index].Data) {
+		err = errors.New("no data available")
+		return
 	}
 
-	return structs.Map(f.Fscom.RdbeTsysData[index].Data[i]), nil
+	data := f.Fscom.RdbeTsysData[index].Data[i]
+	m = structs.Map(data)
+	m["Epoch"] = cstr(data.Epoch[:])
+
+	m["PcalAmp"] = data.PcalAmp[:]
+	m["PcalPhase"] = data.PcalPhase[:]
+
+	m["Tsys"] = make([][]float32, len(data.Tsys))
+	for i := range m["Tsys"] {
+		m["Tsys"][i] = data.Tsys[i][:]
+	}
+
+	return m, nil
 }
 
 // Returns a function which returns if RDBE info has been updated
