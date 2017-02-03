@@ -28,10 +28,11 @@ func (f *FieldSystem) RdbeMap(index int) (m map[string]interface{}, err error) {
 	m["PcalAmp"] = data.PcalAmp[:]
 	m["PcalPhase"] = data.PcalPhase[:]
 
-	m["Tsys"] = make([][]float32, len(data.Tsys))
-	for i := range m["Tsys"] {
-		m["Tsys"][i] = data.Tsys[i][:]
+	tsysmap := make([][]float32, len(data.Tsys))
+	for i := range data.Tsys {
+		tsysmap[i] = data.Tsys[i][:]
 	}
+	m["Tsys"] = tsysmap
 
 	return m, nil
 }
