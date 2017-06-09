@@ -1,3 +1,13 @@
-To add a new version of the FS, run `make`
+To add a new version of the Field System, run 
 
-If you wish to build a VGOS build (which adds extra utils for RDBE), run `make vgos`
+   make
+
+Then add the path to the import in 'all/all.go'.
+
+If you wish to build a VGOS build (which adds extra utils for RDBE), run 
+
+   make vgos
+
+If the Field System is not in /usr2/fs, you can specify FSPATH. Eg:
+
+   make FSPATH=/usr2/fs9.12.11

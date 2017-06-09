@@ -1,4 +1,5 @@
-export FSPATH=/usr2/fs
+FSPATH=/usr2/fs
+export FSPATH
 
 # Needed to override included Makefile
 default: version
@@ -21,7 +22,7 @@ fs$(FS_VERSION)/version.go: $(FSPATH)/Makefile
 	mkdir -p fs$(FS_VERSION)
 	/bin/echo -n -e "package fs\nconst  FieldSystemVersion = \"$(FS_VERSION)\""  > $@
 
-fs$(FS_VERSION)/types.go: ./utils/types.sh 
+fs$(FS_VERSION)/types.go: ./utils/types.sh $(FSPATH)/include/fscom.h
 	mkdir -p fs$(FS_VERSION)
 	./utils/types.sh > $@
 
