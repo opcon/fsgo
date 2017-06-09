@@ -1144,8 +1144,9 @@ type (
 		} `json:"bank"`
 	}
 	Monit6 struct {
-		Tsys [2][4]int32 `json:"tsys"`
-		Pcal [2][4]int32 `json:"pcal"`
+		Tsys      [2][4]int32 `json:"tsys"`
+		Pcal      [2][4]int32 `json:"pcal"`
+		Dot2ppsNs int32       `json:"dot2pps_ns"`
 	}
 	Mux struct {
 		Setting byte `json:"setting"`

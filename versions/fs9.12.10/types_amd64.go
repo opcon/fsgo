@@ -807,8 +807,7 @@ type (
 			PcalAmp [1]byte `json:"pcal_amp"`
 			padCgo0 [3]byte
 		} `json:"rdbe_equip"`
-		Monit6   Monit6 `json:"monit6"`
-		padCgo17 [4]byte
+		Monit6   Monit6   `json:"monit6"`
 		RdbeSync [4]int64 `json:"rdbe_sync"`
 	}
 	Fserr_cls struct {
@@ -1180,8 +1179,9 @@ type (
 		} `json:"bank"`
 	}
 	Monit6 struct {
-		Tsys [2][4]int32 `json:"tsys"`
-		Pcal [2][4]int32 `json:"pcal"`
+		Tsys      [2][4]int32 `json:"tsys"`
+		Pcal      [2][4]int32 `json:"pcal"`
+		Dot2ppsNs int32       `json:"dot2pps_ns"`
 	}
 	Mux struct {
 		Setting byte `json:"setting"`
