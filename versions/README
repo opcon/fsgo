@@ -10,4 +10,7 @@ If you wish to build a VGOS build (which adds extra utils for RDBE), run
 
 If the Field System is not in /usr2/fs, you can specify FSPATH. Eg:
 
-   make FSPATH=/usr2/fs9.12.11
+   make FSPATH=/usr2/fs-9.12.11
+
+
+Be sure to add the new version to all/all.go
