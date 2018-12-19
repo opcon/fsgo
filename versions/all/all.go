@@ -8,4 +8,5 @@ import (
 	_ "fs/versions/fs9.12.12"
 	_ "fs/versions/fs9.12.8"
 	_ "fs/versions/fs9.12.9"
+	_ "fs/versions/fs9.13.0"
 )
