@@ -7,8 +7,8 @@ package fs
 import (
 	"unsafe"
 
-	"github.com/nvi-inc/fs-go/svipc"
 	"github.com/nvi-inc/fs-go/versions"
+	"github.com/nvi-inc/svipc"
 )
 
 type FieldSystem struct {

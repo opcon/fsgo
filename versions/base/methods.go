@@ -8,7 +8,7 @@ import (
 	"errors"
 	"strings"
 
-	"fs/svipc"
+	"github.com/nvi-inc/svipc"
 )
 
 func (f *FieldSystem) Log() string {
