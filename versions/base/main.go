@@ -7,7 +7,7 @@ package fs
 import (
 	"unsafe"
 
-	"github.com/nvi-inc/fs-go/versions"
+	"github.com/nvi-inc/fsgo/versions"
 	"github.com/nvi-inc/svipc"
 )
 
