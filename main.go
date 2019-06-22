@@ -1,3 +1,7 @@
+// Copyright 2019 NVI Inc. All rights reserved.
+// Use of this source code is governed by a MIT
+// license that can be found in the LICENSE file.
+
 package fs
 
 import (
@@ -7,8 +11,8 @@ import (
 	"regexp"
 	"strconv"
 
-	versions "fs/versions"
-	_ "fs/versions/all"
+	versions "github.com/nvi-inc/fsgo/versions"
+	_ "github.com/nvi-inc/fsgo/versions/all"
 )
 
 const basepath = "/usr2/fs"
