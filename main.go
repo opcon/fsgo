@@ -20,20 +20,36 @@ const basepath = "/usr2/fs"
 type FieldSystem versions.FieldSystem
 type Rdbe versions.Rdbe
 
-func NewFieldSystem() (FieldSystem, error) {
-	vers, err := InstalledVersion()
-	if err != nil {
-		return nil, err
-	}
-	creator, ok := versions.Creators[vers]
+// NewFieldSystemVersion opens the Field System shared memory using the memory layout of the verion specified, and
+// returns an error if the specified version is not supported or the system call fails.
+func NewFieldSystemVersion(version string) (fs FieldSystem, err error) {
+	creator, ok := versions.Creators[version]
 	if !ok {
-		return nil, fmt.Errorf("error: version %s not supported", vers)
+		return nil, fmt.Errorf("error: version %s not supported", version)
 	}
-	fs := creator()
+	fs = creator()
 	err = fs.Attach()
 	return fs, err
 }
 
+// NewFieldSystem opens the Field System shared memory by attempting to auto detect the installed version, and returns
+// an error if the detected version is not supported or the system call fails.
+func NewFieldSystem() (fs FieldSystem, err error) {
+	version, err := InstalledVersion()
+	if err != nil {
+		return nil, err
+	}
+
+	creator, ok := versions.Creators[version]
+	if !ok {
+		return nil, fmt.Errorf("error: version %s not supported", version)
+	}
+	fs = creator()
+	err = fs.Attach()
+	return fs, err
+}
+
+// SupportedVersions list the versions of the Field System for which this library contains the shared memory layout
 func SupportedVersions() []string {
 	v := make([]string, 0, len(versions.Creators))
 	for k := range versions.Creators {
@@ -42,7 +58,8 @@ func SupportedVersions() []string {
 	return v
 }
 
-// Parses Makefile in fs directory to find the installed FS version
+// InstalledVersion attempts to detect the installed version of the Field System by parsing
+// the Makefile in "/usr2/fs" directory.
 func InstalledVersion() (string, error) {
 	r, err := regexp.Compile(`^(\w+)\s*=\s*(\w+)$`)
 	if err != nil {
