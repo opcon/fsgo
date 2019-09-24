@@ -1,4 +1,5 @@
 # Go VLBI Field System library
+[![](https://godoc.org/github.com/nathany/looper?status.svg)](http://godoc.org/github.com/nvi-inc/fsgo)
 
 This library implements pure Go access to the VLBI Field System shared memory and semaphores. 
 
