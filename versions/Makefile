@@ -21,7 +21,7 @@ all/all.go: $(shell ls) .
 	gofmt -w $@
 
 # Get version number
-FS_VERSION := $(shell GITDIR=$(FSPATH) git --git-dir=$(FSPATH)/.git describe --always --tags 2>/dev/null)
+FS_VERSION := $(shell git --git-dir=$(FSPATH)/.git describe --always --tags 2>/dev/null)
 
 files = consts.go main.go methods.go types_386.go types_amd64.go types.go utils.go version.go rdbe.go
 
