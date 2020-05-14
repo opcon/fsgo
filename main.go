@@ -6,10 +6,14 @@ package fs
 
 import (
 	"bufio"
+	"bytes"
+	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"regexp"
 	"strconv"
+	"strings"
 
 	versions "github.com/nvi-inc/fsgo/versions"
 	_ "github.com/nvi-inc/fsgo/versions/all"
@@ -58,9 +62,58 @@ func SupportedVersions() []string {
 	return v
 }
 
-// InstalledVersion attempts to detect the installed version of the Field System by parsing
-// the Makefile in "/usr2/fs" directory.
+// InstalledVersion attempts to detect the installed version of the Field System by
+// checking:
+// -   if path is a git repository, then using the tag.
+// -   if path is a symlink to /usr2/fs-(version) and using (version)
+// -   if path/Makefile contains the variables VERSION SUBLEVEL PATCHLEVEL
 func InstalledVersion() (string, error) {
+
+	return "", fmt.Errorf("")
+}
+
+var ErrNotGitDir = errors.New("not a git directory")
+
+// InstalledVersionFromGit attemps to detect the FS version installed in path by using the git tags.
+// This requires git to be in the path.
+func InstalledVersionFromGit(path string) (string, error) {
+	var out bytes.Buffer
+
+	if _, err := os.Stat(path); err != nil {
+		return "", err
+	}
+
+	if _, err := os.Stat(path + "/.git"); os.IsNotExist(err) {
+		return "", ErrNotGitDir
+	}
+
+	gitargs := []string{
+		fmt.Sprintf("--git-dir=%s/.git", path),
+		"describe",
+		"--always",
+		"--tags",
+	}
+
+	cmd := exec.Command("git", gitargs...)
+	cmd.Stdout = &out
+
+	if err := cmd.Run(); err != nil {
+		return "", fmt.Errorf("calling git: %w", err)
+	}
+
+	return strings.TrimSpace(out.String()), nil
+}
+
+// InstalledVersionFromPath attemps to detect the version of the installed Field System by examining the
+// link "path"
+func InstalledVersionFromPath(path string) (string, error) {
+
+	return "", fmt.Errorf("")
+}
+
+// InstalledVersionFromMakefile attempts to detect the installed version of the Field System by parsing
+// the Makefile in "/usr2/fs" directory.
+func InstalledVersionFromMakefile(path string) (string, error) {
 	r, err := regexp.Compile(`^(\w+)\s*=\s*(\w+)$`)
 	if err != nil {
 		return "", err
@@ -68,7 +121,7 @@ func InstalledVersion() (string, error) {
 
 	vars := make(map[string]int)
 
-	f, err := os.Open(basepath + "/Makefile")
+	f, err := os.Open(path + "/Makefile")
 	if err != nil {
 		return "", err
 	}
@@ -87,5 +140,6 @@ func InstalledVersion() (string, error) {
 		}
 		vars[m[1]] = i
 	}
+	// TODO: check if these are digits
 	return fmt.Sprintf("%d.%d.%d", vars["VERSION"], vars["SUBLEVEL"], vars["PATCHLEVEL"]), nil
 }
