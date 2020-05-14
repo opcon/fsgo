@@ -42,7 +42,7 @@ func NewFieldSystemVersion(version string) (fs FieldSystem, err error) {
 // detect the installed version, and returns an error if the detected version
 // is not supported or the system call fails.
 func NewFieldSystem() (fs FieldSystem, err error) {
-	version, err := InstalledVersion()
+	version, err := InstalledVersion(DefaultPath)
 	if err != nil {
 		return nil, err
 	}
@@ -71,9 +71,27 @@ func SupportedVersions() []string {
 // -   if path is a git repository, then using the tag.
 // -   if path is a symlink to /usr2/fs-(version) and using (version)
 // -   if path/Makefile contains the variables VERSION SUBLEVEL PATCHLEVEL
-func InstalledVersion() (string, error) {
+func InstalledVersion(path string) (string, error) {
+	version, errgit := InstalledVersionFromGit(path)
+	if errgit == nil {
+		return version, nil
+	}
+	if os.IsNotExist(errgit) {
+		return "", errgit
+	}
 
-	return "", fmt.Errorf("")
+	version, errpath := InstalledVersionFromPath(path)
+	if errpath == nil {
+		return version, nil
+	}
+	version, errmake := InstalledVersionFromMakefile(path)
+	if errmake == nil {
+		return version, nil
+	}
+
+	return "",
+		fmt.Errorf("git method: %v, path method: %v, makefile method: %v",
+			errgit, errpath, errmake)
 }
 
 var ErrNotGitDir = errors.New("not a git directory")
