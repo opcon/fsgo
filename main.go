@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -19,7 +20,7 @@ import (
 	_ "github.com/nvi-inc/fsgo/versions/all"
 )
 
-const basepath = "/usr2/fs"
+const DefaultPath = "/usr2/fs"
 
 type FieldSystem versions.FieldSystem
 type Rdbe versions.Rdbe
@@ -104,11 +105,22 @@ func InstalledVersionFromGit(path string) (string, error) {
 	return strings.TrimSpace(out.String()), nil
 }
 
-// InstalledVersionFromPath attemps to detect the version of the installed Field System by examining the
-// link "path"
-func InstalledVersionFromPath(path string) (string, error) {
+var pathRegex = regexp.MustCompile(`fs-(\d+\.\d+\.\d+)$`)
+var ErrPathMatch = errors.New("not a git directory")
 
-	return "", fmt.Errorf("")
+// InstalledVersionFromPath attemps to detect the version of the installed
+// Field System by examining the sympolic link "path"
+func InstalledVersionFromPath(path string) (string, error) {
+	name, err := os.Readlink(path)
+	if err != nil {
+		return "", err
+	}
+	m := pathRegex.FindStringSubmatch(filepath.Base(name))
+	if m == nil || len(m) == 0 {
+		return "", ErrPathMatch
+	}
+
+	return m[1], nil
 }
 
 // InstalledVersionFromMakefile attempts to detect the installed version of the Field System by parsing

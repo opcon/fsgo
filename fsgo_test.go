@@ -9,6 +9,61 @@ import (
 	fs "github.com/nvi-inc/fsgo"
 )
 
+func TestInstalledVersionFromPath(t *testing.T) {
+	const testVersion = "10.0.0"
+	must := func(s string, err error) {
+		if err != nil {
+			t.Fatal(s, err)
+		}
+	}
+
+	root, err := ioutil.TempDir("", "fstest*")
+	must("setup test root", err)
+
+	t.Cleanup(func() {
+		os.RemoveAll(root)
+	})
+
+	path := root + "/fs"
+
+	t.Run("not a symbolic link", func(t *testing.T) {
+		must("setup dir", os.Mkdir(path, 0o600))
+		_, err := fs.InstalledVersionFromPath(path)
+		if err == nil {
+			t.Error("expected an error")
+		}
+		must("remove dir", os.Remove(path))
+	})
+
+	t.Run("reject extra junk", func(t *testing.T) {
+		realpath := root + "/fs-" + testVersion + "-test"
+		must("setup test path", os.Mkdir(realpath, 0o600))
+		must("setup symlink", os.Symlink(realpath, path))
+
+		version, err := fs.InstalledVersionFromPath(path)
+		if err == nil {
+			t.Errorf("expected an error instead got %q", version)
+		}
+		must("cleanup realpath", os.Remove(realpath))
+		must("cleanup path", os.Remove(path))
+	})
+
+	t.Run("detect good version", func(t *testing.T) {
+		realpath := root + "/fs-" + testVersion
+		must("setup test path", os.Mkdir(realpath, 0o600))
+		must("setup symlink", os.Symlink(realpath, path))
+
+		version, err := fs.InstalledVersionFromPath(path)
+		if err != nil {
+			t.Error("unexpected error", err)
+		}
+		if version != testVersion {
+			t.Errorf("expected version %q, got version %q", testVersion, version)
+		}
+	})
+
+}
+
 func TestInstalledVersionFromGit(t *testing.T) {
 	t.Run("nonexistant path", func(t *testing.T) {
 		_, err := fs.InstalledVersionFromGit("/thispathshouldnotexit")
