@@ -2,7 +2,23 @@ FSPATH=/usr2/fs
 export FSPATH
 
 # Needed to override included Makefile
-default: version
+default: version all/all.go
+
+define ALLGOHEADER
+// Copyright 2019 NVI Inc. All rights reserved.
+// Use of this source code is governed by a MIT
+// license that can be found in the LICENSE file.
+
+package all
+endef
+export ALLGOHEADER
+
+all/all.go: $(shell ls) .
+	echo "$$ALLGOHEADER" > $@
+	for d in fs[0-9]*; do \
+		echo "import _ \"github.com/nvi-inc/fsgo/versions/$$d\"" >>  all/all.go; \
+	done
+	gofmt -w $@
 
 # Get version number
 FS_VERSION := $(shell GITDIR=$(FSPATH) git --git-dir=$(FSPATH)/.git describe --always --tags 2>/dev/null)
@@ -23,7 +39,7 @@ fs$(FS_VERSION)/types.go: ./utils/types.sh $(FSPATH)/include/fscom.h
 	mkdir -p fs$(FS_VERSION)
 	./utils/types.sh > $@
 
-fs$(FS_VERSION)/types_%.go: fs$(FS_VERSION)/types.go utils/cgo/cgo  Makefile
+fs$(FS_VERSION)/types_%.go: fs$(FS_VERSION)/types.go utils/cgo/cgo Makefile
 	mkdir -p fs$(FS_VERSION)
 	export GOARCH=$(basename $*);\
 		./utils/cgo/cgo -godefs $< |\
