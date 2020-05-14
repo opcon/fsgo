@@ -5,7 +5,7 @@ export FSPATH
 default: version
 
 # Get version number
-include $(FSPATH)/Makefile
+FS_VERSION := $(shell GITDIR=$(FSPATH) git --git-dir=$(FSPATH)/.git describe --always --tags 2>/dev/null)
 
 vgos: version fs$(FS_VERSION)/rdbe.go
 
