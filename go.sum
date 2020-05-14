@@ -1,0 +1,6 @@
+github.com/fatih/structs v1.1.0 h1:Q7juDM0QtcnhCpeyLGQKyg4TOIghuNXrkL32pHAUMxo=
+github.com/fatih/structs v1.1.0/go.mod h1:9NiDSp5zOcgEDl+j00MP/WkGVPOlPRLejGD8Ga6PJ7M=
+github.com/nvi-inc/svipc v0.1.0 h1:QKRJV/oFY/8CTtUYliCEm5rXOjLlBJmUv0kIpSVaX6M=
+github.com/nvi-inc/svipc v0.1.0/go.mod h1:z8jiborZxXGFZU9jyBDDGvnKpSNRs1ZAtfMK1f/UGgY=
+golang.org/x/sys v0.0.0-20200513112337-417ce2331b5c h1:kISX68E8gSkNYAFRFiDU8rl5RIn1sJYKYb/r2vMLDrU=
+golang.org/x/sys v0.0.0-20200513112337-417ce2331b5c/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
