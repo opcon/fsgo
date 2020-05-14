@@ -7,10 +7,7 @@ default: version
 # Get version number
 FS_VERSION := $(shell GITDIR=$(FSPATH) git --git-dir=$(FSPATH)/.git describe --always --tags 2>/dev/null)
 
-vgos: version fs$(FS_VERSION)/rdbe.go
-
-files = consts.go main.go methods.go types_386.go types_amd64.go types.go utils.go version.go
-# Excludes rdbe.go by default since 9.11.* doesn't have the structures
+files = consts.go main.go methods.go types_386.go types_amd64.go types.go utils.go version.go rdbe.go
 
 version: $(addprefix fs$(FS_VERSION)/, $(files))
 
