@@ -9,6 +9,40 @@ import (
 	fs "github.com/nvi-inc/fsgo"
 )
 
+func TestInstalledVersionFromMakefile(t *testing.T) {
+	const testVersion = "9.11.19"
+	const makefile = `VERSION = 9
+SUBLEVEL = 11
+PATCHLEVEL = 19
+FS_VERSION = $(VERSION).$(SUBLEVEL).$(PATCHLEVEL)
+export VERSION SUBLEVEL PATCHLEVEL FS_VERSION
+	`
+	must := func(s string, err error) {
+		if err != nil {
+			t.Fatal(s, err)
+		}
+	}
+
+	root, err := ioutil.TempDir("", "fstest*")
+	must("setup test root", err)
+
+	t.Cleanup(func() {
+		os.RemoveAll(root)
+	})
+
+	path := root + "/fs"
+	must("setup dir", os.Mkdir(path, 0o700))
+	must("writing test file", ioutil.WriteFile(path+"/Makefile", []byte(makefile), 0o600))
+
+	version, err := fs.InstalledVersionFromMakefile(path)
+	if err != nil {
+		t.Error("unexpected error", err)
+	}
+	if version != testVersion {
+		t.Errorf("expected version %q, got version %q", testVersion, version)
+	}
+}
+
 func TestInstalledVersionFromPath(t *testing.T) {
 	const testVersion = "10.0.0"
 	must := func(s string, err error) {
