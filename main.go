@@ -25,8 +25,9 @@ const DefaultPath = "/usr2/fs"
 type FieldSystem versions.FieldSystem
 type Rdbe versions.Rdbe
 
-// NewFieldSystemVersion opens the Field System shared memory using the memory layout of the verion specified, and
-// returns an error if the specified version is not supported or the system call fails.
+// NewFieldSystemVersion opens the Field System shared memory using the memory
+// layout of the verion specified, and returns an error if the specified
+// version is not supported or the system call fails.
 func NewFieldSystemVersion(version string) (fs FieldSystem, err error) {
 	creator, ok := versions.Creators[version]
 	if !ok {
@@ -37,8 +38,9 @@ func NewFieldSystemVersion(version string) (fs FieldSystem, err error) {
 	return fs, err
 }
 
-// NewFieldSystem opens the Field System shared memory by attempting to auto detect the installed version, and returns
-// an error if the detected version is not supported or the system call fails.
+// NewFieldSystem opens the Field System shared memory by attempting to auto
+// detect the installed version, and returns an error if the detected version
+// is not supported or the system call fails.
 func NewFieldSystem() (fs FieldSystem, err error) {
 	version, err := InstalledVersion()
 	if err != nil {
@@ -54,7 +56,8 @@ func NewFieldSystem() (fs FieldSystem, err error) {
 	return fs, err
 }
 
-// SupportedVersions list the versions of the Field System for which this library contains the shared memory layout
+// SupportedVersions list the versions of the Field System for which this
+// library contains the shared memory layout
 func SupportedVersions() []string {
 	v := make([]string, 0, len(versions.Creators))
 	for k := range versions.Creators {
@@ -75,8 +78,8 @@ func InstalledVersion() (string, error) {
 
 var ErrNotGitDir = errors.New("not a git directory")
 
-// InstalledVersionFromGit attemps to detect the FS version installed in path by using the git tags.
-// This requires git to be in the path.
+// InstalledVersionFromGit attemps to detect the FS version installed in path
+// by using the git tags.  This requires git to be in the path.
 func InstalledVersionFromGit(path string) (string, error) {
 	var out bytes.Buffer
 
