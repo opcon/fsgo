@@ -25,39 +25,50 @@ const DefaultPath = "/usr2/fs"
 type FieldSystem versions.FieldSystem
 type Rdbe versions.Rdbe
 
-// NewFieldSystemVersion opens the Field System shared memory using the memory
-// layout of the verion specified, and returns an error if the specified
-// version is not supported or the system call fails.
-func NewFieldSystemVersion(version string) (fs FieldSystem, err error) {
-	creator, ok := versions.Creators[version]
-	if !ok {
-		return nil, fmt.Errorf("error: version %s not supported", version)
-	}
-	fs = creator()
-	err = fs.Attach()
-	return fs, err
+var ErrVersionNotSupported = errors.New("version not supported")
+
+// Attach attaches to the shared memory of the Field System installed at
+// DefaultPath, attempting to automatically detect the version. Returns an
+// error if the detected version is not supported or the system call fails.
+func Attach() (fs FieldSystem, err error) {
+	return AttachPath(DefaultPath)
 }
 
-// NewFieldSystem opens the Field System shared memory by attempting to auto
-// detect the installed version, and returns an error if the detected version
-// is not supported or the system call fails.
-func NewFieldSystem() (fs FieldSystem, err error) {
-	version, err := InstalledVersion(DefaultPath)
+// AttachPath attaches to the shared memory of the Field System installed at
+// path, attempting to automatically detect the version. Returns an error if
+// the detected version is not supported or the system call fails.
+func AttachPath(path string) (fs FieldSystem, err error) {
+	version, err := InstalledVersion(path)
 	if err != nil {
 		return nil, err
 	}
+	return AttachVersionPath(version, path)
+}
 
+// AttachPath attaches to the shared memory of the Field System installed at
+// DefaultPath, using the shared memory version specified. Returns an error if
+// the version is not supported or the system call fails.
+func AttachVersion(version string) (fs FieldSystem, err error) {
+	return AttachVersionPath(version, DefaultPath)
+}
+
+// AttachVersionPath attaches to the shared memory of the Field System installed at
+// path, using the shared memory version specified. Returns an error if the
+// version is not supported or the system call fails.
+func AttachVersionPath(version, path string) (fs FieldSystem, err error) {
 	creator, ok := versions.Creators[version]
 	if !ok {
-		return nil, fmt.Errorf("error: version %s not supported", version)
+		return nil, fmt.Errorf("load version %s: %w", version, ErrVersionNotSupported)
 	}
 	fs = creator()
 	err = fs.Attach()
-	return fs, err
+	if err != nil {
+		return nil, fmt.Errorf("attaching shared memory: %w", err)
+	}
+	return fs, nil
 }
 
-// SupportedVersions list the versions of the Field System for which this
-// library contains the shared memory layout
+// SupportedVersions list the versions of the Field System supported
 func SupportedVersions() []string {
 	v := make([]string, 0, len(versions.Creators))
 	for k := range versions.Creators {
@@ -144,8 +155,8 @@ func InstalledVersionFromPath(path string) (string, error) {
 	return m[1], nil
 }
 
-// InstalledVersionFromMakefile attempts to detect the installed version of the Field System by parsing
-// the Makefile in "/usr2/fs" directory.
+// InstalledVersionFromMakefile attempts to detect the installed version of the
+// Field System by parsing the Makefile in "/usr2/fs" directory.
 func InstalledVersionFromMakefile(path string) (string, error) {
 	r, err := regexp.Compile(`^(\w+)\s*=\s*(\w+)$`)
 	if err != nil {
