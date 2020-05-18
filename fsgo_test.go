@@ -154,3 +154,19 @@ func TestInstalledVersionFromGit(t *testing.T) {
 
 	}
 }
+
+func TestSupportedVersions(t *testing.T) {
+	vs := fs.SupportedVersions()
+	if len(vs) == 0 {
+		t.Errorf("no supported versions")
+	}
+}
+
+func TestAttach(t *testing.T) {
+	// Need to be run with the FS installed and setup
+	_, err := fs.Attach()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+}
