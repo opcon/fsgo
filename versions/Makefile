@@ -29,7 +29,7 @@ version: $(addprefix fs$(FS_VERSION)/, $(files))
 
 fs$(FS_VERSION)/%.go: base/%.go
 	mkdir -p fs$(FS_VERSION)
-	ln -sf ../base/$(notdir $@) $@
+	cp -a base/$(notdir $@) $@
 
 fs$(FS_VERSION)/version.go: $(FSPATH)/Makefile
 	mkdir -p fs$(FS_VERSION)
