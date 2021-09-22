@@ -6,6 +6,7 @@ package all
 
 import _ "github.com/nvi-inc/fsgo/versions/fs10.0.0"
 import _ "github.com/nvi-inc/fsgo/versions/fs10.0.0-beta1"
+import _ "github.com/nvi-inc/fsgo/versions/fs10.0.0-dbbc3"
 import _ "github.com/nvi-inc/fsgo/versions/fs9.11.19"
 import _ "github.com/nvi-inc/fsgo/versions/fs9.11.8"
 import _ "github.com/nvi-inc/fsgo/versions/fs9.12.10"
